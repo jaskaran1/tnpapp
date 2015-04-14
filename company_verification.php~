@@ -1,0 +1,20 @@
+<?php
+
+$servername = "localhost";
+$username = "vishwash";
+$password = "universe";
+$dbname = "tnp";
+$conn = new PDO("pgsql:host=$servername;dbname=$dbname",$username,$password);
+
+$sql ="select * from company where cid='".$_REQUEST['cid']."' ;" ;
+
+$q = $conn->query($sql) or die('failed');
+
+$r = $q->fetch(PDO::FETCH_ASSOC);
+
+if ($r['password'] == $_REQUEST['password'])
+  echo "correct password";
+else
+  echo "incorrect password";
+
+?>
