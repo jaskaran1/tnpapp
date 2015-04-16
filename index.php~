@@ -66,6 +66,32 @@ $conn = get_conn();
           <div class="row">
             <div class="col-xs-6 col-lg-6">
 
+
+<?php
+ if (isset($_SESSION['notify']))
+ {
+?>
+
+ <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> New Notification: </strong> <?php echo $_SESSION['notify']; ?>
+    </div>
+
+
+<?php
+ unset($_SESSION['notify']);
+
+ }
+
+  if (isset($_SESSION['entryno']) or isset($_SESSION['cid']))
+ {
+echo "welcome ".$_SESSION['entryno'].$_SESSION['cid']." <br> ";
+ }
+
+ else {
+
+?>
     <form class="form-signin" action="student_verification.php" method="POST">
         <h2 class="form-signin-heading">Student sign in</h2>
         <label for="inputEntryNumber" class="sr-only">Entry Number</label>
@@ -97,7 +123,12 @@ $conn = get_conn();
         </div>
         <button class="btn btn-primary btn-block" type="submit">I'm a Company</button>
       </form>
+     <a href="new_company.php"> <button type="button" class="btn btn-link"> Not Registered? </button> </a>
 
+<?php
+     }
+
+?>
             </div><!--/.col-xs-6.col-lg-4-->
 
   
@@ -117,7 +148,7 @@ $conn = get_conn();
       <hr>
 
       <footer>
-        <p>&copy; Company 2014</p>
+        <p>&copy; Developed as part of Database Project for CSL454-2015, IIT Ropar </p>
       </footer>
 
     </div><!--/.container-->
@@ -129,10 +160,6 @@ $conn = get_conn();
     <script src="static/jquery/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
-    <script src="offcanvas.js"></script>
   </body>
 </html>
 

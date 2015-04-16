@@ -37,8 +37,11 @@ $job_d = $_REQUEST['job_designation'];
 
 $sql = "insert into interview values('".$date."','".$time."','".$type."','".$_SESSION['cid']."','".$num_rounds."','".$resume."','".$min_c."','".$min_10."','".$min_12."','".$degree."','".$job_l."','".$job_s."','".$job_d."','request'); ";
 
+echo $sql;
 
 $q = $conn->exec($sql) or die('failed');
+
+$_SESSION['notify'] = "Request for scheduling interview has been sent to the administrator";
 
 header("Location: welcome_company.php");
 

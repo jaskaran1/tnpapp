@@ -14,6 +14,9 @@ if ($r['password'] == $_REQUEST['password'])
  {
   
   #echo "correct password";
+  session_unset();
+  #session_destroy();
+
   $_SESSION['cid'] = $_REQUEST['cid'];
   header("Location: welcome_company.php");
  }

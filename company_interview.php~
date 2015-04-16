@@ -1,34 +1,9 @@
 <?php
 
-include "db.php";
-session_start();
-$conn = get_conn();
+include "db_driver.php";
 
 $cid = $_SESSION['cid'];
 
-
-function get_company($cid,$conn)
-{
- 
- $sql = "select * from company where cid='".$cid."' ;";
-
- $q = $conn->query($sql) or die('failed');
-
- $r = $q->fetch(PDO::FETCH_ASSOC);
- 
- return $r;   
-}
-
-
-function get_interviews($cid,$conn)
-{
- $sql = "select * from interview where cid='".$cid."' ;";
- 
- $q = $conn->query($sql) or die('failed');
- 
- return $q;
-
-}
 
 $company = get_company($cid,$conn);
 
@@ -98,8 +73,8 @@ $company = get_company($cid,$conn);
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 
           <div class="list-group">
-            <a href="welcome_company.php" class="list-group-item active"> Profile </a>
-            <a href="company_interview.php" class="list-group-item"> Interviews </a>
+            <a href="welcome_company.php" class="list-group-item"> Profile </a>
+            <a href="company_interview.php" class="list-group-item active"> Interviews </a>
             <a href="company_students.php" class="list-group-item"> Students </a>
           
           </div>

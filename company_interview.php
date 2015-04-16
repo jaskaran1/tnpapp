@@ -1,34 +1,9 @@
 <?php
 
-include "db.php";
-session_start();
-$conn = get_conn();
+include "db_driver.php";
 
 $cid = $_SESSION['cid'];
 
-
-function get_company($cid,$conn)
-{
- 
- $sql = "select * from company where cid='".$cid."' ;";
-
- $q = $conn->query($sql) or die('failed');
-
- $r = $q->fetch(PDO::FETCH_ASSOC);
- 
- return $r;   
-}
-
-
-function get_interviews($cid,$conn)
-{
- $sql = "select * from interview where cid='".$cid."' ;";
- 
- $q = $conn->query($sql) or die('failed');
- 
- return $q;
-
-}
 
 $company = get_company($cid,$conn);
 
@@ -106,6 +81,12 @@ $company = get_company($cid,$conn);
 
         </div><!--/.sidebar-offcanvas-->
 
+<?php
+
+  if (isset($_SESSION['cid']))
+  {
+?>
+
         <div class="col-xs-12 col-sm-9">
           <div class="jumbotron">
 
@@ -172,6 +153,16 @@ $company = get_company($cid,$conn);
 
 
           </div>
+
+<?php
+  }
+
+else
+{
+echo "<p> Please log into continue </p>";
+}
+
+?>
 
       </div><!--/row-->
      </div>

@@ -1,50 +1,11 @@
 <?php
 
-include "db.php";
-session_start();
-$conn = get_conn();
+#include "db.php";
+include "db_driver.php";
+#session_start();
+#$conn = get_conn();
 
 $entryno = $_SESSION['entryno'];
-
-function get_student($entryno,$conn)
-{
- 
- $sql = "select * from student where entryno='".$entryno."' ;";
-
- $q = $conn->query($sql) or die('failed');
-
- $r = $q->fetch(PDO::FETCH_ASSOC);
- 
- return $r;   
-}
-
-function get_courses($entryno,$conn)
-{
- $sql = "select * from courses_done where entryno='".$entryno."' ;";
-
- $q = $conn->query($sql) or die('failed');
-  return $q;
-
-}
-
-function get_upcoming_interviews($conn)
-{
-
- $sql = "select * from interview natural join company;";
-
- $q = $conn->query($sql) or die('failed');
- return $q;
-
-}
-
-function get_applied_interviews($entryno,$conn)
-{
- $sql = "select * from interested where entryno='".$entryno."' ; ";
- 
- $q = $conn->query($sql) or die('failed');
- return $q;
-
-}
 
 ?>
 
@@ -126,6 +87,8 @@ function get_applied_interviews($entryno,$conn)
 
 $interviews = get_upcoming_interviews($conn);
 
+if (isset($_SESSION['entryno']))
+ {
 
 ?>
 
@@ -144,8 +107,7 @@ $interviews = get_upcoming_interviews($conn);
 
 while ($interview = $interviews->fetch(PDO::FETCH_ASSOC))
 {
- echo "<tr> <td>".$interview['name']." </td> <td> ".$interview['date']." </td> <td> ".$interview['time']." </td> <td> <a href='apply_interview.php?a=".$interview['cid']."&b=".$interview['date']."'> Apply </a> </td> </tr>";
-
+ echo "<tr> <td>".$interview['name']." </td> <td> ".$interview['date']." </td> <td> ".$interview['time']." </td> <td> <a href='apply_interview.php?a=".$interview['cid']."&b=".$interview['date']."&c=".$interview['time']."'> Apply </a> </td> </tr>";
 }
 
 
@@ -154,9 +116,19 @@ while ($interview = $interviews->fetch(PDO::FETCH_ASSOC))
 
 </tbody>
     </table>
+
   </div><!-- /example -->
 
 
+<?php
+
+ }
+
+else
+ {
+ echo "<p> Please log in to continue </p>";
+ }
+?>
 
 
           </div>

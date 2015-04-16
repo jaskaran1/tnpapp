@@ -91,8 +91,6 @@ echo "Already scheduled interviews: <br>";
 
 $interviews = get_interviews($_SESSION['cid'],$conn);
 
-if (isset($_SESSION['cid']))
- {
 
 ?>
 
@@ -123,19 +121,10 @@ while ($interview = $interviews->fetch(PDO::FETCH_ASSOC))
     </table>
   </div><!-- /example -->
 
-<?php
-}
-else
-{
-echo "<p> Please log into continue </p>";
-}
 
-?>
 
 
           </div>
-
-
 
       </div><!--/row-->
      </div>

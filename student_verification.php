@@ -13,6 +13,8 @@ $r = $q->fetch(PDO::FETCH_ASSOC);
 if ($r['password'] == $_REQUEST['password'])
  {
   #echo "correct password";
+  session_unset();
+  #session_destroy();
   
   $_SESSION['entryno'] = $_REQUEST['entryno'];
   header("Location: welcome_student.php");

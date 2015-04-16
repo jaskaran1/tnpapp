@@ -1,34 +1,8 @@
 <?php
 
-include "db.php";
-session_start();
-$conn = get_conn();
+include "db_driver.php";
 
 $cid = $_SESSION['cid'];
-
-
-function get_company($cid,$conn)
-{
- 
- $sql = "select * from company where cid='".$cid."' ;";
-
- $q = $conn->query($sql) or die('failed');
-
- $r = $q->fetch(PDO::FETCH_ASSOC);
- 
- return $r;   
-}
-
-
-function get_interviews($cid,$conn)
-{
- $sql = "select * from interview where cid='".$cid."' ;";
- 
- $q = $conn->query($sql) or die('failed');
- 
- return $q;
-
-}
 
 $company = get_company($cid,$conn);
 
@@ -111,13 +85,31 @@ $company = get_company($cid,$conn);
 <?php
 
 
-
-
+if (isset($_SESSION['cid']))
+  {
 ?>
 
 
 <div class="bs-docs-section">
   <h2 id="breadcrumbs" class="page-header"> welcome <?php  echo $company['cid']; ?>   </h2>
+
+<?php
+ if (isset($_SESSION['notify']))
+ {
+?>
+
+ <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> New Notification: </strong> <?php echo $_SESSION['notify']; ?>
+    </div>
+
+
+<?php
+ unset($_SESSION['notify']);
+
+ }
+?>
 
   <p class="lead"> Your profile  <button class="btn-primary"> Edit </button> </p>
   <div class="bs-example" data-example-id="simple-breadcrumbs">
@@ -141,7 +133,14 @@ $company = get_company($cid,$conn);
   
   </div>
 
+<?php
+   }
 
+else
+{
+echo "</p> Please log into continue </p>";
+}
+?>
           </div>
 
       </div><!--/row-->

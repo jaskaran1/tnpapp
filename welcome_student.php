@@ -1,50 +1,10 @@
 <?php
 
-include "db.php";
-session_start();
-$conn = get_conn();
+include "db_driver.php";
+
 
 $entryno = $_SESSION['entryno'];
 
-function get_student($entryno,$conn)
-{
- 
- $sql = "select * from student where entryno='".$entryno."' ;";
-
- $q = $conn->query($sql) or die('failed');
-
- $r = $q->fetch(PDO::FETCH_ASSOC);
- 
- return $r;   
-}
-
-function get_courses($entryno,$conn)
-{
- $sql = "select * from courses_done where entryno='".$entryno."' ;";
-
- $q = $conn->query($sql) or die('failed');
-  return $q;
-
-}
-
-function get_upcoming_interviews($conn)
-{
-
- $sql = "select * from interview natural join company;";
-
- $q = $conn->query($sql) or die('failed');
- return $q;
-
-}
-
-function get_applied_interviews($entryno,$conn)
-{
- $sql = "select * from interested where entryno='".$entryno."' ; ";
- 
- $q = $conn->query($sql) or die('failed');
- return $q;
-
-}
 
 ?>
 
@@ -127,8 +87,29 @@ function get_applied_interviews($entryno,$conn)
 
 $student = get_student($entryno,$conn);
 
+
+if (isset($_SESSION['entryno']))
+{
 ?>
 
+
+<?php
+ if (isset($_SESSION['notify']))
+ {
+?>
+
+ <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
+    <div class="alert alert-warning alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> New Notification: </strong> <?php echo $_SESSION['notify']; ?>
+    </div>
+
+
+<?php
+ unset($_SESSION['notify']);
+
+ }
+?>
 
 <div class="bs-docs-section">
   <h2 id="breadcrumbs" class="page-header"> welcome <?php  echo $student['first_name']; ?>   </h2>
@@ -162,7 +143,16 @@ $student = get_student($entryno,$conn);
     </ol>
   
   </div>
+<?php
 
+   }
+
+else {
+
+echo "<p> Your session has expired. Please log in to continue </p> ";
+   }
+
+?>
 
           </div>
 

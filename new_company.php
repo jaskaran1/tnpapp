@@ -62,31 +62,12 @@ $conn = get_conn();
           <div class="jumbotron">
             <h1> TnP Cell- IIT Ropar</h1>
             <p> welcome to online portal for all information related to training and placement of students of Indian Institute of Technology Ropar, Rupnagar,Punjab,India </p>
-
-
-<?php
- if (isset($_SESSION['notify']))
- {
-?>
-
- <div class="bs-example bs-example-standalone" data-example-id="dismissible-alert-js">
-    <div class="alert alert-warning alert-dismissible fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong> New Notification: </strong> <?php echo $_SESSION['notify']; ?>
-    </div>
-
-
-<?php
- unset($_SESSION['notify']);
-
- }
-?>
           
           <div class="row">
             <div class="col-xs-6 col-lg-6">
 
 <?php
-
+ 
   if (isset($_SESSION['entryno']) or isset($_SESSION['cid']))
  {
 echo "welcome ".$_SESSION['entryno'].$_SESSION['cid']." <br> ";
@@ -95,38 +76,44 @@ echo "welcome ".$_SESSION['entryno'].$_SESSION['cid']." <br> ";
  else {
 
 ?>
-    <form class="form-signin" action="student_verification.php" method="POST">
-        <h2 class="form-signin-heading">Student sign in</h2>
-        <label for="inputEntryNumber" class="sr-only">Entry Number</label>
-        <input type="text" name="entryno" class="form-control" placeholder="Entry Number" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-primary btn-block" type="submit">I'm a Student</button>
-      </form>
+ <p> Please enter information below to send a request for registration to the TnP Officer of IIT Ropar </p>
+<form action="register_company.php" method="POST">
 
-            </div><!--/.col-xs-6.col-lg-4-->
+  <div class="form-group"> 
+    <label for="exampleInputPassword1">Username</label>
+    <input type="text" class="form-control" name="cid" placeholder="Username">
+  </div>
+  <div class="form-group"> 
+    <label for="exampleInputPassword1">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Name">
+  </div>
+ 
 
-          <div class="col-xs-6 col-lg-6">
+  
+  <div class="form-group"> 
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+ 
+<div class="form-group">
+    <label for="exampleInputEmail1">Contact Email address</label>
+    <input type="email" class="form-control" name="contact_email" placeholder="Enter email">
+  </div>
+ 
+ <div class="form-group">
+    <label for="exampleInputEmail1">Contact Number</label>
+    <input type="text" class="form-control" name="contact_number" placeholder="Enter number">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Contact Name</label>
+    <input type="text" class="form-control" name="contact_person" placeholder="Enter contact name">
+  </div>
+ 
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
-    <form class="form-signin" action="company_verification.php" method="POST">
-        <h2 class="form-signin-heading">Company sign in</h2>
-        <label for="inputCompanyUsername" class="sr-only">Username</label>
-        <input type="text" name="cid" class="form-control" placeholder="Username" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-primary btn-block" type="submit">I'm a Company</button>
-      </form>
-     <a href="new_company.php"> <button type="button" class="btn btn-link"> Not Registered? </button> </a>
+
+
 
 <?php
      }
